@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
 Route::get('/about', function () {
     return "Page :About";
 });
@@ -26,3 +27,9 @@ Route::get('/contact', function () {
 Route::get('/post/{ID}/{NAME}', function ($id,$name) {
     return "Post Article ID:". $id ."NAME:".$name;
 });
+*/
+
+Route::get('post/{id}','PostsController@index');
+
+Route::resource('posts','PostsController');
+
