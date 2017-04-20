@@ -85,4 +85,25 @@ class PostsController extends Controller
     {
         //
     }
+
+    public function showContact()
+    {
+        //
+        return view('contact');
+     }
+
+     public function showPost($category,$date,$id)
+    {
+
+      // return view('post')->with({'category',$category,'date',$date,'id',$id});
+      
+      return view('post')->with(array(
+            'category'=>$category,
+            'date'=>$date,
+            'id'=>$id,
+      ));
+
+        //return view('post',compact('category','date','id'));
+     
+     }
 }

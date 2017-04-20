@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//(客製)控制器使用方法,用@
+Route::get('contact','PostsController@showContact');
+
+//預設
+//Route::resource('posts','PostsController');
+
 /*
 Route::get('/about', function () {
     return "Page :About";
@@ -29,7 +35,8 @@ Route::get('/post/{ID}/{NAME}', function ($id,$name) {
 });
 */
 
-Route::get('post/{id}','PostsController@index');
 
-Route::resource('posts','PostsController');
+//Route::get('post/{id}','PostsController@index');
+Route::get('post/{category}/{date}/{id}','PostsController@showPost');
+
 
