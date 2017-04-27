@@ -88,22 +88,21 @@ class PostsController extends Controller
 
     public function showContact()
     {
-        //
-        return view('contact');
+        //return view('contact');
+        //return view('errors.503');
+
+        $people=['瓦麗拉','索爾','珍娜','阿薩斯'];
+        return view('contact',compact('people'));
+
      }
 
      public function showPost($category,$date,$id)
     {
 
-      // return view('post')->with({'category',$category,'date',$date,'id',$id});
-      
-      return view('post')->with(array(
-            'category'=>$category,
-            'date'=>$date,
-            'id'=>$id,
-      ));
+        //$arr=array('category'=>$category,'date'=>$date,'id'=>$id,);
+       //return view('post')->with($arr);
 
-        //return view('post',compact('category','date','id'));
+        return view('post',compact('category','date','id'));
      
      }
 }

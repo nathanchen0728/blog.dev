@@ -1,15 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-@extends('layouts.app') 
+@extends('layouts.master') 
+
 
 @section('content')
+
+
+<div class="members">
+推薦職業:      
+@if(count($people))
+
+@foreach($people as $hero)
+
+<li>{{$hero}}</li>
+
+@endforeach
+
+@endif    
+    
+</div>
+
 
 <address>
   <strong>Twitter, Inc.</strong><br>
@@ -23,7 +31,7 @@
   <a href="mailto:#">first.last@example.com</a>
 </address>
 
-@endsection
 
-</body>
-</html>
+
+
+@endsection
