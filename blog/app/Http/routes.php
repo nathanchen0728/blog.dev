@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//(�Ȼs)����ϥΤ�k,��@
+//(客製)控制器使用方法,用@
 Route::get('contact','PostsController@showContact');
 
-//�w�]
+//預設
 //Route::resource('posts','PostsController');
 
 /*
@@ -40,3 +40,30 @@ Route::get('/post/{ID}/{NAME}', function ($id,$name) {
 Route::get('post/{category}/{date}/{id}','PostsController@showPost');
 
 
+
+Route::get('/insert', function () {
+    DB::insert('INSERT INTO posts (title,`fulltext`) VALUES (?,?)',['Hi','Hello Word']);
+});
+
+Route::get('/read', function () {
+    $results = DB::select('SELECT * FROM posts WHERE id=?',[2]);
+
+    foreach($results as $results)
+    {
+        return $results->title;
+    }
+
+    //var_dump($results);
+});
+
+
+
+Route::get('/update', function () {
+    $sql = DB::update('UPDATE posts SET title="我愛一條蟲" WHERE id =?',[1]);
+    return var_dump($sql);
+});
+
+Route::get('/delete', function () {
+    $sql = DB::delete('DELETE FROM posts WHERE id =?',[1]);
+    return var_dump($sql);
+});
