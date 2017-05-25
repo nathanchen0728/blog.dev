@@ -1,5 +1,5 @@
 <?php
-
+use App\Post;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//(å®¢è£½)æŽ§åˆ¶å™¨ä½¿ç”¨æ–¹æ³•,ç”¨@
+//(å®¢è£½)?Ž§??¶å™¨ä½¿ç”¨?–¹æ³?,?”¨@
 Route::get('contact','PostsController@showContact');
 
-//é è¨­
+//??è¨­
 //Route::resource('posts','PostsController');
 
 /*
@@ -40,7 +40,7 @@ Route::get('/post/{ID}/{NAME}', function ($id,$name) {
 Route::get('post/{category}/{date}/{id}','PostsController@showPost');
 
 
-
+/*
 Route::get('/insert', function () {
     DB::insert('INSERT INTO posts (title,`fulltext`) VALUES (?,?)',['Hi','Hello Word']);
 });
@@ -59,11 +59,67 @@ Route::get('/read', function () {
 
 
 Route::get('/update', function () {
-    $sql = DB::update('UPDATE posts SET title="æˆ‘æ„›ä¸€æ¢èŸ²" WHERE id =?',[1]);
+    $sql = DB::update('UPDATE posts SET title="??‘æ?›ä??æ¢èŸ²" WHERE id =?',[1]);
     return var_dump($sql);
 });
 
 Route::get('/delete', function () {
     $sql = DB::delete('DELETE FROM posts WHERE id =?',[1]);
     return var_dump($sql);
+});
+*/
+
+
+
+Route::get('read',function(){
+
+    //$posts=Post::all();
+
+   //$posts= Post::WHERE('is_admin',0)
+   //             ->orderby('id','desc')
+   //             ->take(2)
+   //             ->get();
+    
+
+    //$posts= Post::find(2);
+    $posts= Post::WHERE('is_admin',0)->first();
+    return $posts->title;
+    
+
+    foreach($posts as $post){
+        echo $post->id . ": " . $post->fulltext. "<br>\n";
+    }
+
+});
+
+Route::get('insert/{title}/{fulltext}',function($title,$fulltext){
+    $post=new Post;
+
+    $post->title="$title";
+    $post->fulltext="$fulltext";
+
+    $post->save();
+});
+
+Route::get('update/{id}/{title}/{fulltext}',function($id,$title,$fulltext){
+    //$post=Post::find($id);
+    //$post->title="$title";
+    //$post->fulltext="$fulltext";
+    //$post->save();
+
+    //±MÄÝ¤èªk
+    Post::WHERE('id',$id)->WHERE('is_admin',0)
+        ->update([
+            'title'=>$title,
+            'fulltext'=>$fulltext
+        ]);
+
+});
+
+Route::get('create',function(){
+   Post::create([
+       'title'=>'123',
+        'fulltext'=>'999',
+   ]);
+
 });
