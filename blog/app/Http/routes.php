@@ -73,7 +73,8 @@ Route::get('/delete', function () {
 
 Route::get('read',function(){
 
-    //$posts=Post::all();
+    $posts=Post::all();
+    return $posts;
 
    //$posts= Post::WHERE('is_admin',0)
    //             ->orderby('id','desc')
@@ -82,13 +83,14 @@ Route::get('read',function(){
     
 
     //$posts= Post::find(2);
-    $posts= Post::WHERE('is_admin',0)->first();
-    return $posts->title;
+    
+    //$posts= Post::WHERE('is_admin',0)->first();
+    //return $posts->title;
     
 
-    foreach($posts as $post){
-        echo $post->id . ": " . $post->fulltext. "<br>\n";
-    }
+    //foreach($posts as $post){
+    //    echo $post->id . ": " . $post->fulltext. "<br>\n";
+    //}
 
 });
 
@@ -99,6 +101,14 @@ Route::get('insert/{title}/{fulltext}',function($title,$fulltext){
     $post->fulltext="$fulltext";
 
     $post->save();
+});
+
+Route::get('create',function(){
+   Post::create([
+       'title'=>'123',
+        'fulltext'=>'999',
+   ]);
+
 });
 
 Route::get('update/{id}/{title}/{fulltext}',function($id,$title,$fulltext){
@@ -116,10 +126,45 @@ Route::get('update/{id}/{title}/{fulltext}',function($id,$title,$fulltext){
 
 });
 
-Route::get('create',function(){
-   Post::create([
-       'title'=>'123',
-        'fulltext'=>'999',
-   ]);
+Route::get('delete/{id}',function($id)
+{
+    $post=Post::find($id);
+    $post->delete();
+});
+
+Route::get('delete',function()
+{
+    Post::destroy([2,5,6]);
+});
+
+Route::get('readall',function()
+{
+    
+    $posts=Post::withTrashed()->get();
+    return $posts;
+});
+
+Route::get('onlytrash',function()
+{
+    
+    $posts=Post::onlyTrashed()->get();
+    return $posts;
+});
+
+Route::get('restore',function(){
+
+    Post::onlyTrashed()->restore();
+    
+});
+
+Route::get('forcedelete',function(){
+
+    Post::onlyTrashed()->forceDelete();
+
+});
+
+Route::get('forcedelete/{id}',function($id){
+
+    Post::find($id)->forceDelete();
 
 });
