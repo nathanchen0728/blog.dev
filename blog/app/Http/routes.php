@@ -2,6 +2,8 @@
 use App\Post;
 use App\User;
 use App\Role;
+use App\Country;
+use App\Photo;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -17,10 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//(å®¢è£½)?Ž§??¶å™¨ä½¿ç”¨?–¹æ³?,?”¨@
+//(æ‘°ï¼ºËŠ)?ç¶‰??å—…è†¥é›¿è¼»é‚?ä²®ç˜œ?,?é‚@
 Route::get('contact','PostsController@showContact');
 
-//??è¨­
+//??éž±èº«
 //Route::resource('posts','PostsController');
 
 /*
@@ -61,7 +63,7 @@ Route::get('/read', function () {
 
 
 Route::get('/update', function () {
-    $sql = DB::update('UPDATE posts SET title="??‘æ?›ä??æ¢èŸ²" WHERE id =?',[1]);
+    $sql = DB::update('UPDATE posts SET title="??çƒ?ð¥•¢??ç’‡è‚½é…‘" WHERE id =?',[1]);
     return var_dump($sql);
 });
 
@@ -119,7 +121,7 @@ Route::get('update/{id}/{title}/{fulltext}',function($id,$title,$fulltext){
     //$post->fulltext="$fulltext";
     //$post->save();
 
-    //±MÄÝ¤èªk
+    //å°ˆå±¬æ–¹æ³•
     Post::WHERE('id',$id)->WHERE('is_admin',0)
         ->update([
             'title'=>$title,
@@ -205,11 +207,11 @@ Route::get('user/{userid}/role',function($userid){
         //return $role->name;
        // echo $role->name."<br>\n";
     //} 
-    //¨ú¥ÎrolseÄÝ©Ê
+    //å–ç”¨rolseå±¬æ€§
     
     $role = User::find($userid)->roles()->orderBy('id','desc')->get();
     return $role;
-    //©I¥sroles()¤èªk
+    //å‘¼å«roles()æ–¹æ³•
 
 
 });
@@ -222,4 +224,37 @@ Route::get('role/{roleid}/user',function($roleid){
         ->get();
 
     return  $user;
+});
+
+Route::get('country/{countryid}/{userid}/posts',function($countryid,$userid){
+
+    $country=Country::find($countryid);
+
+    foreach($country->posts as $post){
+        echo $post->title."<br>\n";
+    }
+    //return  $country;
+});
+
+Route::get('user/{userid}/photos',function($userid){
+
+    $user=User::find($userid);
+
+    foreach($user->photos as $photo){
+        //echo $post->title."<br>\n";
+        return $photo;
+    }
+    
+});
+
+Route::get('post/{postid}/photos',function($postid){
+    
+    $post=Post::findOrFail($postid);
+    echo $post->title."<br>\n";
+    
+    foreach($post->photos as $pohto){
+       echo $post->path."<br>\n";
+        //return  $photo;
+    }
+    
 });
