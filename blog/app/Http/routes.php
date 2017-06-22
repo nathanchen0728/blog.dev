@@ -4,6 +4,7 @@ use App\User;
 use App\Role;
 use App\Country;
 use App\Photo;
+use App\Tag;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -19,10 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//(摰Ｚˊ)?綉??嗅膥雿輻鍂?䲮瘜?,?鍂@
+//(?��Ｚ�?)?�????????�雿輻�???䲮�???,????@
 Route::get('contact','PostsController@showContact');
 
-//??鞱身
+//???���?
 //Route::resource('posts','PostsController');
 
 /*
@@ -63,7 +64,7 @@ Route::get('/read', function () {
 
 
 Route::get('/update', function () {
-    $sql = DB::update('UPDATE posts SET title="??烐?𥕢??璇肽酑" WHERE id =?',[1]);
+    $sql = DB::update('UPDATE posts SET title="??????𥕢???????��??" WHERE id =?',[1]);
     return var_dump($sql);
 });
 
@@ -121,7 +122,7 @@ Route::get('update/{id}/{title}/{fulltext}',function($id,$title,$fulltext){
     //$post->fulltext="$fulltext";
     //$post->save();
 
-    //專屬方法
+    //�?屬方�?
     Post::WHERE('id',$id)->WHERE('is_admin',0)
         ->update([
             'title'=>$title,
@@ -207,11 +208,11 @@ Route::get('user/{userid}/role',function($userid){
         //return $role->name;
        // echo $role->name."<br>\n";
     //} 
-    //取用rolse屬性
+    //??�用rolse屬�??
     
     $role = User::find($userid)->roles()->orderBy('id','desc')->get();
     return $role;
-    //呼叫roles()方法
+    //?��?��roles()?���?
 
 
 });
@@ -243,8 +244,7 @@ Route::get('user/{userid}/photos',function($userid){
     foreach($user->photos as $photo){
         //echo $post->title."<br>\n";
         return $photo;
-    }
-    
+    }   
 });
 
 Route::get('post/{postid}/photos',function($postid){
@@ -252,9 +252,31 @@ Route::get('post/{postid}/photos',function($postid){
     $post=Post::findOrFail($postid);
     echo $post->title."<br>\n";
     
-    foreach($post->photos as $pohto){
+    foreach($post->photos as $photo){
        echo $post->path."<br>\n";
         //return  $photo;
     }
+});
+
+Route::get('post/{postid}/tags',function($postid){
     
+    $post=Post::find($postid);
+    echo $post->title."<br>\n";
+    
+    echo "Tag:";
+    foreach($post->tags as $tag){
+       echo $tag->name.",";
+    }  
+});
+
+Route::get('tag/{tagid}/posts',function($tagid){
+    
+    $tag=Tag::find($tagid);
+    echo "Tag:".$tag->name."<br>\n";
+    
+    echo "<ol>";
+    foreach($tag->posts as $post){
+       echo "<li>".$post->title."</li>";
+    }  
+    echo "</ol>";
 });
