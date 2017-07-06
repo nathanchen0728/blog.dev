@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Post;
 
 class PostsController extends Controller
 {
@@ -19,6 +20,7 @@ class PostsController extends Controller
         return "H W , ID: ";
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +29,8 @@ class PostsController extends Controller
     public function create()
     {
         //
-        return ("這是P C");
+        //return ("��蹱糓P C");
+        return view('posts.create');
     }
 
     /**
@@ -38,7 +41,17 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Post::create($request->all());
+        
+
+        //return $request->all();
+        // echo $request->title;
+        // echo $request->get('fulltext');
+       // dd($request->all());
+       
+       return redirect('/posts');
+
+
     }
 
     /**
@@ -91,7 +104,7 @@ class PostsController extends Controller
         //return view('contact');
         //return view('errors.503');
 
-        $people=['瓦麗拉','索爾','珍娜','阿薩斯'];
+        $people=['�𣑐暻埈��','蝝Ｙ��','��滚��','�燵�慐�鱻'];
         return view('contact',compact('people'));
 
      }
