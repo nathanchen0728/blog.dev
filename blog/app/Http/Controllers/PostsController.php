@@ -17,7 +17,13 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return "H W , ID: ";
+        //return "H W , ID: ";
+        //echo "Hello";
+        $posts = Post::all();
+
+        //dd($posts);
+
+        return view('posts.index',compact('posts'));
     }
 
 
@@ -29,7 +35,7 @@ class PostsController extends Controller
     public function create()
     {
         //
-        //return ("��蹱糓P C");
+        //return ("嚙踝蕭頩梁�𡦖 C");
         return view('posts.create');
     }
 
@@ -41,17 +47,16 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //Post::create($request->all());
+        Post::create($request->all());
         
 
         //return $request->all();
+        
         // echo $request->title;
         // echo $request->get('fulltext');
        // dd($request->all());
        
-       return redirect('/posts');
-
-
+        return redirect('/posts');
     }
 
     /**
@@ -63,6 +68,9 @@ class PostsController extends Controller
     public function show($id)
     {
         //
+        $posts = Post::findOrFail($id);
+
+        return view('posts.show',compact('post'));
     }
 
     /**
@@ -74,6 +82,9 @@ class PostsController extends Controller
     public function edit($id)
     {
         //
+        $posts = Post::findOrFail($id);
+
+        return view('posts.edit',compact('post'));
     }
 
     /**
@@ -86,6 +97,10 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $posts = Post::findOrFail($id);
+        $posts->update($request->all());
+
+        return redirect('/posts');
     }
 
     /**
@@ -97,6 +112,10 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+        $posts = Post::findOrFail($id);
+        $posts->delete();
+
+        return redirect('/posts');
     }
 
     public function showContact()
@@ -104,7 +123,7 @@ class PostsController extends Controller
         //return view('contact');
         //return view('errors.503');
 
-        $people=['�𣑐暻埈��','蝝Ｙ��','��滚��','�燵�慐�鱻'];
+        $people=['嚙踢��鞉塀���嚙踝蕭','��嘅撕嚙踝蕭','嚙踝蕭皛𡄯蕭嚙�','嚙賜晠嚙賣�琜蕭敼�'];
         return view('contact',compact('people'));
 
      }
