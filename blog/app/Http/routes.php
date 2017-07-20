@@ -21,13 +21,13 @@ Route::get('/', function () {
 });
 
 Route::resource('/posts','PostsController');
-//路由太多,會影響效能!
-//取代CRUD的對應七行
+//頝舐眏憭芸��,���敶梢𣳽������!
+//��碶誨CRUD���撠齿�劐��銵�
 // CRUD
-// create >> store	新增功能
-// index // show		列表 // 單筆顯示
-// edit >> update		更新功能
-// destroy		刪除功能
+// create >> store	�鰵憓𧼮�蠘��
+// index // show		��𡑒” // �鱓蝑�憿舐內
+// edit >> update		�凒�鰵��蠘��
+// destroy		�⏛�膄��蠘��
 
 
 

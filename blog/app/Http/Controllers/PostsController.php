@@ -35,7 +35,7 @@ class PostsController extends Controller
     public function create()
     {
         //
-        //return ("嚙踝蕭頩梁�𡦖 C");
+        //return ("��躰�肽𨯙�匲璇�嚙踢’� C");
         return view('posts.create');
     }
 
@@ -68,7 +68,7 @@ class PostsController extends Controller
     public function show($id)
     {
         //
-        $posts = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
 
         return view('posts.show',compact('post'));
     }
@@ -82,7 +82,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         //
-        $posts = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
 
         return view('posts.edit',compact('post'));
     }
@@ -97,8 +97,8 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $posts = Post::findOrFail($id);
-        $posts->update($request->all());
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
 
         return redirect('/posts');
     }
@@ -112,8 +112,8 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
-        $posts = Post::findOrFail($id);
-        $posts->delete();
+        $post = Post::findOrFail($id);
+        $post->delete();
 
         return redirect('/posts');
     }
@@ -123,7 +123,7 @@ class PostsController extends Controller
         //return view('contact');
         //return view('errors.503');
 
-        $people=['嚙踢��鞉塀���嚙踝蕭','��嘅撕嚙踝蕭','嚙踝蕭皛𡄯蕭嚙�','嚙賜晠嚙賣�琜蕭敼�'];
+        $people=['��躰腺嚙踝蕭��匧��嚙踝蕭嚙賢�躰�肽𨯙','嚙踝蕭�����訫�躰�肽𨯙','��躰�肽𨯙��𥪮��航𨯙��辷蕭','��躰�𨀣�惩�躰都嚙賜�𡏭𨯙�焩嚙�'];
         return view('contact',compact('people'));
 
      }
